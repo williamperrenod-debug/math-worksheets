@@ -1,0 +1,5 @@
+let worksheets=[];
+async function loadWorksheets(){const response=await fetch("worksheets.json");worksheets=await response.json();displayResults(worksheets);document.getElementById("searchBox").addEventListener("input",searchWorksheets);} 
+function searchWorksheets(){const query=document.getElementById("searchBox").value.toLowerCase();const filtered=worksheets.filter(item=>item.title.toLowerCase().includes(query)||item.folder.toLowerCase().includes(query));displayResults(filtered);} 
+function displayResults(data){document.getElementById("resultsCount").textContent=`${data.length} worksheet(s) found`;const results=document.getElementById("results");results.innerHTML='';data.forEach(item=>{const card=document.createElement('div');card.className='card';card.innerHTML=`<div class="folder">${item.folder}</div><div class="title">${item.title}</div><a class="link-button" href="${item.url}" target="_blank">Open Worksheet</a>`;results.appendChild(card);});}
+loadWorksheets();
